@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongooes = require("mongoose");
 const UserRoute = require("./routes/user")
+const tweetRoute = require('./routes/tweet')
 
 const app = express();
 const PORTNO = process.env.PORT || 3000;
@@ -28,6 +29,8 @@ app.use(
 
 // routes
 app.use('/api/v1/user' , UserRoute )
+app.use('/api/v1/tweet' , tweetRoute )
+
 
 app.listen(PORTNO, () => {
   console.log(` server is up and running on port no ${PORTNO}`);
