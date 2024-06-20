@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require('cors')
 const mongooes = require("mongoose");
 const UserRoute = require("./routes/user")
 const tweetRoute = require('./routes/tweet')
@@ -19,6 +20,7 @@ mongooes
 
 
 // middelware
+app.use(cors())
 app.use(express.json());
 app.use(
   express.urlencoded({
