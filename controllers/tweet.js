@@ -62,10 +62,10 @@ const getAllTweets = async (req, res) => {
   try {
     const id = req.user.id;
     const loggedInUser = await usersModel.findById(id);
-    const loggedInUserTweets = await tweetModel.find({ userId: id });
+    const loggedInUserTweets = await tweetModel.find({ userId: id }).populate("userId");
     const followingUserTweet = await Promise.all(
       loggedInUser.following.map((otherUsersId) => {
-        return tweetModel.find({ userId: otherUsersId });
+        return tweetModel.find({ userId: otherUsersId }).populate("userId");
       })
     );
     return res.status(200).json({
