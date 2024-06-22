@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
-let tokenBlacklist = [];
 
 const registerFun = async (req, res) => {
   const { name, email, username, password } = req.body;
@@ -76,16 +75,8 @@ const loginFun = async (req, res) => {
   });
 };
 
-const logoutFun = (req, res) => {
-  app.post(
-    "/logout",
-    passport.authenticate("jwt", { session: false }),
-    (req, res) => {
-      const token = req.headers["authorization"].split(" ")[1];
-      tokenBlacklist.push(token);
+const logoutFun =(req, res) => {
       res.json({ message: "Logged out successfully" });
-    }
-  );
 };
 
 const bookmarkFun = async (req, res) => {
