@@ -20,7 +20,11 @@ mongooes
 
 
 // middelware
-app.use(cors())
+app.use(cors({
+  origin: "*", // Allow all origins (for development)
+  methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"], // Allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+}));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -36,4 +40,11 @@ app.use('/api/v1/tweet' , tweetRoute )
 
 app.listen(PORTNO, () => {
   console.log(` server is up and running on port no ${PORTNO}`);
+});
+
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  }
 });
